@@ -27,7 +27,11 @@ io.on("connection", (socket) => {
 
   // Escuchar por el evento chat:typing, emite a todos excepto al que envio el evento
   socket.on("chat:typing", (data) => {
-    console.log(data);
     socket.broadcast.emit("chat:typing", data);
+  });
+
+  // Evento propio de los sockets para saber si un socket se ha desconectado
+  socket.on("disconnect", () => {
+    console.log(`user ${socket.id} has disconnected`);
   });
 });
